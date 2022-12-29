@@ -16,7 +16,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 
-sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --cri-socket unix:///run/containerd/containerd.sock
+sudo kubeadm init --kubernetes-version=1.26.0 --pod-network-cidr=10.244.0.0/16 --cri-socket unix:///run/containerd/containerd.sock
 
 export KUBECONFIG=/etc/kubernetes/admin.conf
 

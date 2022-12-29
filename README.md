@@ -56,7 +56,6 @@ multipass shell worker
 when in worker,execute the following commands
 
 ```
-sudo -i
 git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
 cd multipass-kubernete-cluster/worker
 ./install-all.sh
