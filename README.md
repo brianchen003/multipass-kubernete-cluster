@@ -1,36 +1,6 @@
 You can use [Multipass](https://multipass.run/) to create two Ubuntu VMs and then set up a Kubernetes cluster on these two VMs. It only takes less than 6 minutes.
 
 
-Terminal [iTerm2](https://iterm2.com/) pane layout, make sure they all are on the same directory.
-
-```
-+-----------------------+------------------------------------+
-| o o o                                                      |
-+-----------------------+------------------------------------+
-| macOS                 | cks-master                         |
-|=======================|====================================|
-| $ pwd                 | $ pwd                              |
-| /Users/yujunliang     | /Users/yujunliang                  |
-| $ # Run Step 1 here.  | $ #Run Step 2 here.                |
-|                       | $ #Run Step 3 on cks-worker pane.  | 
-|                       |                                    |
-|                       +------------------------------------+
-|                       | cks-worker                         |
-|                       |====================================|
-|                       | $ pwd                              |
-|                       | /Users/yujunliang                  |
-|                       | $ #Run Step 3 here.                |
-+-----------------------+------------------------------------+
-```
-
-## Screenshot
-
-If you substract the time, it only takes 5 minutes and 26 seconds.
-
-
-![Screenshot](./images/screenshot.png)
-
-
 ## Installation steps
 
 These are the links to install and create kubernetes cluster,
@@ -43,28 +13,27 @@ These are the links to install and create kubernetes cluster,
 ### Step 1. Create two Ubuntu VMs on macOS pane,
 
 ```
-git clone https://github.com/yujunliang/multipass-kubernetes.git
+git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
 cd multipass-kubernetes/multipass
 ./launch-2vm.sh
 ```
 
-### Step 2. On cks-master pane,
+### Step 2. On master pane,
 
-#### 2.1 SSH to Ubuntu VM cks-master 
+#### 2.1 SSH to Ubuntu VM master 
 
 ```
-cd multipass-kubernetes/multipass
-./ssh-to-cks-master.sh
+multipass shell master
 ```
 
 #### 2.2 Install master packages
 
-when in cks-master VM, execute the following commands
+when in master VM, execute the following commands
 
 ```
 sudo -i
-git clone https://github.com/yujunliang/multipass-kubernetes.git
-cd multipass-kubernetes/cks-master
+git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
+cd multipass-kubernetes/master
 ./install-all.sh
 ```
 
@@ -76,46 +45,38 @@ copy the output like this, and prepare to run it in Step 3.3
 kubeadm join 192.168.64.3:6443 --token al0kvi.x60mi1xj4zesqnq3     --discovery-token-ca-cert-hash sha256:f4ff0c7684bbac599a8208b94bb28e451023662ab51bc1ce16f60a855a85e2a5
 ```
 
-### Step 3. On cks-worker pane,
+### Step 3. On worker pane,
 
-#### 3.1 SSH to Ubuntu VM cks-worker
+#### 3.1 SSH to Ubuntu VM worker
 ```
-cd multipass-kubernetes/multipass
-./ssh-to-cks-worker.sh
+multipass shell worker
 ```
 
 #### 3.2 Install worker packages
-when in cks-worker,execute the following commands
+when in worker,execute the following commands
 
 ```
 sudo -i
-git clone https://github.com/yujunliang/multipass-kubernetes.git
-cd multipass-kubernetes/cks-worker
+git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
+cd multipass-kubernetes/worker
 ./install-all.sh
 ```
 
-#### 3.3 Join cks-master as cks-worker
+#### 3.3 Join master as worker
 
 then run what you copied from Step 2, something like this,
 
 ```
-kubeadm join 192.168.64.3:6443 --token al0kvi.x60mi1xj4zesqnq3     --discovery-token-ca-cert-hash sha256:f4ff0c7684bbac599a8208b94bb28e451023662ab51bc1ce16f60a855a85e2a5
+sudo kubeadm join 192.168.64.3:6443 --token al0kvi.x60mi1xj4zesqnq3     --discovery-token-ca-cert-hash sha256:f4ff0c7684bbac599a8208b94bb28e451023662ab51bc1ce16f60a855a85e2a5
 ```
 
-### Step 4. On second window, cks-master
+### Step 4. On second window, master
 
 ```
 # kubectl get nodes
 NAME         STATUS   ROLES    AGE   VERSION
-cks-master   Ready    master   34h   v1.19.0
-cks-worker   Ready    <none>   34h   v1.19.0
-
-# kubectl run nginx --image=nginx
-pod/nginx created
-
-# kubectl get pod
-NAME    READY   STATUS    RESTARTS   AGE
-nginx   1/1     Running   0          19s
+master   Ready    master   34h   v1.19.0
+worker   Ready    <none>   34h   v1.19.0
 ```
 
 ### Step 5. Delete two Ubuntu VMs on macOS pane,
@@ -125,5 +86,3 @@ After you complete practice, you can delete the VMs. Assume you are still on the
 ```
 ./destroy.sh
 ```
-
-Follow me on [LinkedIn](https://www.linkedin.com/in/yujunliang/)
