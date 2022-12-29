@@ -58,7 +58,7 @@ when in worker,execute the following commands
 ```
 git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
 cd multipass-kubernete-cluster/worker
-./install-all.sh
+sh install-all.sh
 ```
 
 #### 3.3 Join master as worker
