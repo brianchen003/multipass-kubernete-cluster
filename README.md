@@ -14,7 +14,7 @@ These are the links to install and create kubernetes cluster,
 
 ```
 git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
-cd multipass-kubernetes/multipass
+cd multipass-kubernete-cluster/multipass
 ./launch-2vm.sh
 ```
 
@@ -33,7 +33,7 @@ when in master VM, execute the following commands
 ```
 sudo -i
 git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
-cd multipass-kubernetes/master
+cd multipass-kubernete-cluster/master
 ./install-all.sh
 ```
 
@@ -58,7 +58,7 @@ when in worker,execute the following commands
 ```
 sudo -i
 git clone https://github.com/brianchen003/multipass-kubernete-cluster.git
-cd multipass-kubernetes/worker
+cd multipass-kubernete-cluster/worker
 ./install-all.sh
 ```
 
