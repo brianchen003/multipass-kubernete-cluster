@@ -1,1 +1,0 @@
-multipass shell cks-worker

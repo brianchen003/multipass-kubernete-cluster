@@ -1,5 +1,5 @@
-multipass stop cks-master
-multipass delete cks-master
-multipass stop cks-worker
-multipass delete cks-worker
+multipass stop master
+multipass delete master
+multipass stop worker
+multipass delete worker
 multipass purge
